@@ -22,66 +22,14 @@ $(document).ready(function () {
     $.ajax({
     type: 'POST',
     url: 'http://0.0.0.0:5001/api/v1/places_search/',
+    data: '{}',
+    dataType: 'json',
     contentType: 'application/json',
-    data: JSON.stringify(dObj),
     success: function (data) {
-        let foo = '';
-
-        for (const place of data) {
-        foo += `<article>
-
-        <div class="title">
-
-            <h2>${place.name}</h2>
-
-            <div class="price_by_night">
-
-        ${place.price_by_night}
-
-            </div>
-        </div>
-        <div class="information">
-            <div class="max_guest">
-        <i class="fa fa-users fa-3x" aria-hidden="true"></i>
-
-        <br />
-
-        ${place.max_guest} Guests
-
-            </div>
-            <div class="number_rooms">
-        <i class="fa fa-bed fa-3x" aria-hidden="true"></i>
-
-        <br />
-
-        ${place.number_rooms} Bedrooms
-            </div>
-            <div class="number_bathrooms">
-        <i class="fa fa-bath fa-3x" aria-hidden="true"></i>
-
-        <br />
-
-        ${place.number_bathrooms} Bathroom
-
-            </div>
-        </div>
-
-        <!-- **********************
-        USER
-        **********************  -->
-
-        <div class="user">
-
-        </div>
-        <div class="description">
-
-            ${place.description}
-
-        </div>
-
-        </article>`;
-        }
-        $('.places h1').after(foo);
+      for (let k = 0; k < data.length; k++) {
+        const placeData = data[k];
+        $('.places ').append('<article><h2>' + placeData.name + '</h2><div class="price_by_night"><p>$' + placeData.price_by_night + '</p></div><div class="information"><div class="max_guest"><div class="guest_image"></div><p>' + placeData.max_guest + '</p></div><div class="number_rooms"><div class="bed_image"></div><p>' + placeData.number_rooms + '</p></div><div class="number_bathrooms"><div class="bath_image"></div><p>' + placeData.number_bathrooms + '</p></div></div><div class="description"><p>' + placeData.description + '</p></div></article>');
+      }
     }
-    });
+  });
 });
