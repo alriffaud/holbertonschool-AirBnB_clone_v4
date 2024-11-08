@@ -1,5 +1,195 @@
-# AirBnB Clone - The Console
-The console is the first segment of the AirBnB project at Holberton School that will collectively cover fundamental concepts of higher level programming. The goal of AirBnB project is to eventually deploy our server a simple copy of the AirBnB Website(HBnB). A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+<p align="center">
+  <img src="https://i.imgur.com/ogbfW3k.png">
+</p>
+
+# AirBnB clone - The console
+The console is the first segment of the AirBnB project at Holberton School, which will collectively cover fundamental concepts of higher-level programming. The goal of the AirBnB project is to eventually deploy our server with a simple copy of the AirBnB Website(HBnB).
+* The AirBnb clone project consists of 6 parts:
+
+| Component 	| Description 	|
+|:--------------------------:	|:------------------------------------------------------------:	|
+| Console 	| Data model management via command interpreter 	|
+| Web static 	| HTML/CSS/Templates 	|
+| MySQL storage 	| Importing local file storage to database 	|
+| Web framework - templating 	| Web server deployment in Python 	|
+| RESTful API 	| JSON web interface to display all objects 	|
+| Web dynamic 	| Loading of objects from client side using Jquery/RESTful API 	|
+
+* A command interpreter is created in this segment to manage objects for the AirBnB(HBnB) website.
+---
+Example of final product:
+<p align="center">
+  <img src="https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/8-index.png">
+</p>
+
+## Learning objectives
+
+### Serialization / Deserialization Flow
+
+In our project, these processes are handled by the ``FileStorage`` class,\
+which is responsible for converting instances to dictionaries, then to **JSON**,\
+and saving/loading these from a file.
+
+- Serialization: When an object is saved, it is first converted to a dictionary using\
+  the `to_dict` method of the *BaseModel* class. This dictionary is then serialized to **JSON** format.
+  
+- Deserialization: When objects are loaded, the **JSON** file is deserialized back into a dictionary,\
+  and each dictionary is then converted back into an object of the appropriate class.
+
+### Packages / Modules / Cyclical Imports
+
+The models package contains various classes representing different entities in the application,\
+while the engine package includes the *FileStorage* class for handling serialization and deserialization.\
+The tests package contains unit tests for the models.
+
+- Module Import: Modules are imported using relative imports within the same package.\
+  For example, ``BaseModel`` is imported into ``console.py`` using ``from models.base_model import BaseModel``
+
+- Cyclical Imports: Cyclical imports are managed by ensuring that import statements are placed\
+  at the bottom of files or within functions, avoiding import loops. For instance,\
+  ``BaseModel`` imports ``storage`` ``from models.engine.file_storage``,\
+  but ``FileStorage`` does not import ``BaseModel`` directly, avoiding a circular dependency.
+
+### Layered Architecture
+
+The *BaseModel* class works as the father class for all other models, providing common attributes and methods.\
+The *FileStorage* class acts as the data access layer, handling the serialization and deserialization of objects.
+
+- The *BaseModel* class provides a common structure for all models, including attributes for **id**,\
+  `created_at`, and `updated_at`, and methods for saving and converting objects to dictionaries.
+
+- The `FileStorage` class acts as the data access layer, managing the persistence of objects\
+  to a file. It provides methods for saving objects to a **JSON** file and loading them back into memory.
+
+### Interfaces (Storage)
+ 
+The *FileStorage* class acts as an interface for *storage*.
+
+- FileStorage: The ``FileStorage`` class provides a unified interface for saving and loading objects.\
+ It uses a dictionary to store objects and serializes this dictionary to a **JSON** file.
+
+- Abstraction Layer: The abstraction is provided by the storage module, which creates a single instance of\
+   ``FileStorage`` and provides access to its methods through this instance.
+
+### Abstract Classes (BaseClass)
+
+The ``BaseModel`` class is an abstract class that provides a common structure and\
+behavior for all models in the application. It ensures that all models have a consistent\
+set of attributes and methods.
+
+- BaseModel Class: The `BaseModel` class is an abstract class that defines common attributes and\
+  methods for all models.
+  
+- Inheritance: Other model classes, such as `User`, `State`, and `City`, inherit from `BaseModel`.\
+  This inheritance ensures that all models share the same base attributes and methods.
+  Hierarchical inheritance is a type of inheritance where multiple subclasses inherit from\
+  a single base class.
+
+## Project scheme
+
+<p align="center">
+  <img src="https://i.imgur.com/TsuYBxr.png">
+</p>
+
+## File Structure
+
+The project is organized into the following directories and files:
+
+- `console.py` - The entry point of the command interpreter for the console component.
+
+- `models/` - Contains the classes, such as `BaseModel`, `User`, `State`, `City`,
+  `Amenity`, `Place`, and `Review`.
+  
+- `models/engine/` - Contains the `file_storage.py` file, which handles the
+  serialization and deserialization of objects to and from JSON files.
+  
+- `tests/` - Contains unit tests for the application.
+
+## Usage
+* All files are interpreted/compiled on Ubuntu 20.04 LTS using python3 (version 3.8.5)
+* All code use the PEP 8 style (version 2.7.*)
+* The console works in interactive mode:
+```sh
+$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit
+$
+```
+
+The console also works in non-interactive mode:
+```sh
+$ echo "help" | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb) 
+$
+$ cat test_help
+help
+$
+$ cat test_help | ./console.py
+(hbnb)
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+(hbnb) 
+$
+```
+
+## How to use the commands
+
+| Component 	| Description 	|
+|:--------------------------:	|:------------------------------------------------------------:	|
+| help | Displays all commands available. |
+| create | Create object and prints it's id. |
+| update | Updates an object with a new attribute. |
+| destroy | Destroys an specified object. |
+| show | Retrieves an object from a file, a database. |
+| all | Displays all objects in a class. |
+| quit | Exits the console. |
+
+## Testing
+
+* All unittests can be executed with:
+
+```sh
+python3 -m unittest discover tests
+```
+* All tests should also pass in non-interactive mode:
+
+```sh
+$ echo "python3 -m unittest discover tests" | bash
+```
+
+---
+
+## Dependencies and Installation Instructions
+
+- Latest version of Python 3.8.5 or later.
+
+### Installing
+
+1. Clone the repository to your local machine.
+  ```
+  $ git clone https://github.com/alriffaud/holbertonschool-AirBnB_clone.git
+  ```
+2. Navigate to the project directory.
+
+### Running the Project
+
+After setting up your environment, you can run the console by executing `./console.py`.
+
+---
 
 #### Functionalities of this command interpreter:
 * Create a new object (ex: a new User or a new Place)
@@ -153,11 +343,11 @@ EOF  all  create  destroy  help  quit  show  update
 ## Bugs
 No known bugs at this time. 
 
-## Authors
-Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
-Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
-Alberto Riffaud - [Github](https://github.com/alriffaud)
-Joaquin Fernandez - [Github]()
+## Authors :black_nib:
+- Alberto Riffaud - [GitHub](https://github.com/alriffaud) | [Linkedin](https://www.linkedin.com/in/alberto-riffaud)
+- Joaquin Fernandez - [Github](https://github.com/Joaquinfer7688)
+- Alexa Orrico - [Github](https://github.com/alexaorrico) 
+- Jennifer Huang - [Github](https://github.com/jhuang10123)
 
 Second part of Airbnb: Joann Vuong
 ## License
