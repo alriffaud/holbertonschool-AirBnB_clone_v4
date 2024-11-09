@@ -19,7 +19,12 @@ class State(BaseModel, Base):
         name = ""
 
     def __init__(self, *args, **kwargs):
-        """ This method initializes an instance of State. """
+        """ This method initializes an instance of State.
+        Args:
+            args (tuple): the arguments
+            kwargs (dict): a dictionary containing the key/value pairs of
+            instances
+        """
         super().__init__(*args, **kwargs)
 
     if models.storage_t != "db":
