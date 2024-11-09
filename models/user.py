@@ -1,5 +1,5 @@
 #!/usr/bin/python
-""" holds class User"""
+""" This module defines the class User. """
 import models
 from models.base_model import BaseModel, Base
 from os import getenv
@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):
-    """Representation of a user """
+    """ This class defines the attributes of User. """
     if models.storage_t == 'db':
         __tablename__ = 'users'
         email = Column(String(128), nullable=False)
@@ -25,5 +25,10 @@ class User(BaseModel, Base):
         last_name = ""
 
     def __init__(self, *args, **kwargs):
-        """initializes user"""
+        """ This method initializes an instance of User.
+        Args:
+            args (tuple): the arguments
+            kwargs (dict): a dictionary containing the key/value pairs of
+            instances
+        """
         super().__init__(*args, **kwargs)
