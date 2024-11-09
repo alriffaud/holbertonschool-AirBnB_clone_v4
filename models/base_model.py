@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Contains class BaseModel
-"""
+""" This module contains class BaseModel """
 
 from datetime import datetime
 import models
@@ -27,7 +25,7 @@ class BaseModel:
         updated_at = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
-        """Initialization of the base model"""
+        """ This method initializes an instance of BaseModel. """
         if kwargs:
             for key, value in kwargs.items():
                 if key != "__class__":
