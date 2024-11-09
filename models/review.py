@@ -20,5 +20,10 @@ class Review(BaseModel, Base):
         text = ""
 
     def __init__(self, *args, **kwargs):
-        """ This method initializes an instance of Review. """
+        """ This method initializes an instance of Review.
+        Args:
+            args (tuple): the arguments
+            kwargs (dict): a dictionary containing the key/value pairs of
+            instances
+        """
         super().__init__(*args, **kwargs)
